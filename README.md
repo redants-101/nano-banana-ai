@@ -10,7 +10,7 @@
 
 ```env
 # OpenRouter API Key for Gemini 2.5 Flash Image
-OPENROUTER_API_KEY=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
+OPENROUTER_API_KEY=sk-or-v1-40f733fd4dc816e1cdb1706ef7fe6e639bdcc0ff17eab24
 
 # 应用信息（可选）
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
@@ -125,7 +125,7 @@ nano-banana-ai/
 
 **提示**：如果 Windows 不允许创建以点开头的文件，可以使用命令行：
 ```bash
-echo OPENROUTER_API_KEY=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 > .env.local
+echo OPENROUTER_API_KEY=sk-or-v1-40f733fd4dc816e1cdb1706ef7fe6e639bdcc0ff17eab24 > .env.local
 ```
 
 ### API Key 无效怎么办？
