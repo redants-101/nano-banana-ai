@@ -34,8 +34,8 @@ export async function POST(request: NextRequest) {
 
     // 环境配置检查和日志输出（便于生产环境排查）
     const apiKey = process.env.OPENROUTER_API_KEY;
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-    const siteName = process.env.NEXT_PUBLIC_SITE_NAME || "Nano Banana AI Image Editor";
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+    const siteName = process.env.NEXT_PUBLIC_SITE_NAME;
     
     console.log('=== 图片生成请求开始 ===');
     console.log('时间:', new Date().toISOString());
