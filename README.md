@@ -10,14 +10,17 @@
 
 ```env
 # OpenRouter API Key for Gemini 2.5 Flash Image
-OPENROUTER_API_KEY=sk-or-v1-40f733fd4dc816e1cdb1706ef7fe6e639bdcc0ff17eab24
+OPENROUTER_API_KEY=your-api-key-here
 
 # 应用信息（可选）
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 NEXT_PUBLIC_SITE_NAME=Nano Banana AI Image Editor
 ```
 
-⚠️ **重要提示**：`.env.local` 文件包含敏感信息，不要提交到 Git 仓库！
+⚠️ **重要提示**：
+- `.env.local` 文件包含敏感信息，不要提交到 Git 仓库！
+- 请将 `your-api-key-here` 替换为您从 [OpenRouter](https://openrouter.ai/) 获取的真实 API Key
+- API Key 格式通常为：`sk-or-v1-xxxxxxxxxxxxxxxxxxxxxxx`
 
 ### 第二步：安装依赖
 
@@ -44,6 +47,36 @@ pnpm dev
 ### 第三步：打开浏览器
 
 访问：http://localhost:3000
+
+---
+
+## 🌐 生产环境部署
+
+如果您要将项目部署到生产环境（如服务器、Vercel、Netlify 等），请查看详细的部署指南：
+
+📖 **[生产环境部署指南](./docs/PRODUCTION_DEPLOYMENT.md)**
+
+### 快速配置生产环境
+
+在生产环境中，必须配置以下环境变量：
+
+```bash
+# 必需：OpenRouter API Key（与您的真实 API Key）
+OPENROUTER_API_KEY=sk-or-v1-xxxxxxxxxxxxxxxxxxxxxxx
+
+# 必需：生产环境域名（不要使用 localhost！）
+NEXT_PUBLIC_SITE_URL=https://your-domain.com
+
+# 可选：网站名称
+NEXT_PUBLIC_SITE_NAME=Nano Banana AI Image Editor
+```
+
+⚠️ **常见错误**：
+- ❌ 生产环境未配置 `OPENROUTER_API_KEY`
+- ❌ `NEXT_PUBLIC_SITE_URL` 仍然是 `http://localhost:3000`
+- ❌ 修改环境变量后未重新构建项目
+
+如遇到"图片生成失败"错误，请参考 [生产环境故障排查指南](./docs/PRODUCTION_DEPLOYMENT.md)
 
 ## 📋 系统要求
 

@@ -13,13 +13,16 @@ const openai = new OpenAI({
 });
 
 export async function POST(request: NextRequest) {
+  // 声明 locale 变量，以便在 catch 块中也能访问
+  let locale: 'en' | 'zh' = 'en';
+  
   try {
     // 解析请求数据
     const body = await request.json();
     const { imageUrl, prompt, locale: bodyLocale } = body;
     
     // 获取用户语言偏好
-    const locale = bodyLocale || getLocaleFromRequest(request);
+    locale = bodyLocale || getLocaleFromRequest(request);
 
     // 验证输入
     if (!imageUrl || !prompt) {
@@ -29,8 +32,25 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log('开始处理图片生成请求...');
+    // 环境配置检查和日志输出（便于生产环境排查）
+    const apiKey = process.env.OPENROUTER_API_KEY;
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+    const siteName = process.env.NEXT_PUBLIC_SITE_NAME || "Nano Banana AI Image Editor";
+    
+    console.log('=== 图片生成请求开始 ===');
+    console.log('时间:', new Date().toISOString());
+    console.log('语言:', locale);
     console.log('提示词:', prompt);
+    console.log('环境配置:');
+    console.log('  - API Key 已配置:', !!apiKey);
+    console.log('  - API Key 长度:', apiKey ? apiKey.length : 0);
+    console.log('  - Site URL:', siteUrl);
+    console.log('  - Site Name:', siteName);
+    
+    if (!apiKey) {
+      console.error('❌ 严重错误: OPENROUTER_API_KEY 未配置！');
+      throw new Error('API Key not configured. Please set OPENROUTER_API_KEY in environment variables.');
+    }
 
     // 调用 Gemini 2.5 Flash Image API
     const completion = await openai.chat.completions.create({
@@ -125,20 +145,24 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error: any) {
-    console.error('API 调用错误:', error);
+    console.error('=== API 调用错误 ===');
+    console.error('时间:', new Date().toISOString());
+    console.error('错误类型:', error.constructor.name);
+    console.error('错误消息:', error.message);
+    console.error('错误堆栈:', error.stack);
     
-    // 尝试获取 locale，如果失败则使用英文
-    let locale: 'en' | 'zh' = 'en';
-    try {
-      locale = getLocaleFromRequest(request);
-    } catch (e) {
-      // 使用默认语言
+    // 输出更多调试信息
+    if (error.response) {
+      console.error('API 响应状态:', error.response.status);
+      console.error('API 响应数据:', error.response.data);
     }
     
+    // 使用已经获取的 locale（如果获取失败，则使用默认值 'en'）
     return NextResponse.json(
       {
         error: getApiMessage('failed', locale),
         details: error.message || getApiMessage('unknownError', locale),
+        timestamp: new Date().toISOString(),
       },
       { status: 500 }
     );
