@@ -1,9 +1,13 @@
 "use client"
 
-import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { LanguageSwitcher } from "@/components/language-switcher"
+import { useTranslations } from "next-intl"
+import { Link } from "@/lib/i18n/navigation"
 
 export function Header() {
+  const t = useTranslations()
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
@@ -14,28 +18,29 @@ export function Header() {
 
         <nav className="hidden md:flex items-center gap-6">
           <Link href="#editor" className="text-sm font-medium hover:text-primary transition-colors">
-            Image Editor
+            {t('header.imageEditor')}
           </Link>
           <Link href="#showcase" className="text-sm font-medium hover:text-primary transition-colors">
-            Showcase
+            {t('header.showcase')}
           </Link>
           <Link href="#features" className="text-sm font-medium hover:text-primary transition-colors">
-            Features
+            {t('header.features')}
           </Link>
           <Link href="#pricing" className="text-sm font-medium hover:text-primary transition-colors">
-            Pricing
+            {t('header.pricing')}
           </Link>
           <Link href="#api" className="text-sm font-medium hover:text-primary transition-colors">
-            API
+            {t('header.api')}
           </Link>
         </nav>
 
         <div className="flex items-center gap-3">
+          <LanguageSwitcher />
           <Button variant="ghost" size="sm">
-            Sign In
+            {t('common.signIn')}
           </Button>
           <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
-            Get Started
+            {t('common.getStarted')}
           </Button>
         </div>
       </div>

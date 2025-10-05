@@ -1,14 +1,17 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
 import { Upload, Sparkles, ImageIcon, Loader2, Check, AlertCircle } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { useTranslations, useLocale } from "next-intl"
 
 export function EditorSection() {
+  const t = useTranslations('editor')
+  const locale = useLocale()
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const [prompt, setPrompt] = useState("")
   const [isGenerating, setIsGenerating] = useState(false)
@@ -16,17 +19,17 @@ export function EditorSection() {
   const [generatedImage, setGeneratedImage] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
-  // 处理图片上传
+  // Handle image upload
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (file) {
-      // 检查文件大小（最大 10MB）
+      // Check file size (max 10MB)
       if (file.size > 10 * 1024 * 1024) {
-        setError("图片大小不能超过 10MB")
+        setError(t('errors.imageSizeExceeded'))
         return
       }
 
-      // 清除之前的错误和结果
+      // Clear previous errors and results
       setError(null)
       setGeneratedResult(null)
       setGeneratedImage(null)
@@ -39,16 +42,16 @@ export function EditorSection() {
     }
   }
 
-  // 处理图片生成
+  // Handle image generation
   const handleGenerate = async () => {
-    // 验证输入
+    // Validate input
     if (!selectedImage) {
-      setError("请先上传一张图片")
+      setError(t('errors.uploadImageFirst'))
       return
     }
 
     if (!prompt.trim()) {
-      setError("请输入提示词")
+      setError(t('errors.enterPrompt'))
       return
     }
 
@@ -58,7 +61,7 @@ export function EditorSection() {
     setGeneratedImage(null)
 
     try {
-      // 调用 API
+      // Call API
       const response = await fetch("/api/generate-image", {
         method: "POST",
         headers: {
@@ -67,24 +70,25 @@ export function EditorSection() {
         body: JSON.stringify({
           imageUrl: selectedImage,
           prompt: prompt.trim(),
+          locale: locale, // 传递当前语言
         }),
       })
 
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.error || data.details || "生成失败")
+        throw new Error(data.error || data.details || t('errors.generationFailed'))
       }
 
-      // 设置生成结果（文本和图片）
+      // Set generated result (text and image)
       setGeneratedResult(data.result)
       if (data.imageUrl) {
         setGeneratedImage(data.imageUrl)
       }
-      console.log("生成成功:", data)
+      console.log("Generation successful:", data)
     } catch (err: any) {
-      console.error("生成错误:", err)
-      setError(err.message || "生成失败，请稍后重试")
+      console.error("Generation error:", err)
+      setError(err.message || t('errors.tryAgainLater'))
     } finally {
       setIsGenerating(false)
     }
@@ -95,12 +99,11 @@ export function EditorSection() {
       <div className="container">
         <div className="text-center mb-12">
           <Badge variant="secondary" className="mb-4 bg-primary/10 text-primary border-primary/20">
-            Get Started
+            {t('badge')}
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Try The AI Editor</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">{t('title')}</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Experience the power of nano-banana's natural language image editing. Transform any photo with simple text
-            commands.
+            {t('description')}
           </p>
         </div>
 
@@ -110,26 +113,26 @@ export function EditorSection() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-primary" />
-                Prompt Engine
+                {t('promptEngine')}
               </CardTitle>
-              <CardDescription>Transform your image with AI-powered editing</CardDescription>
+              <CardDescription>{t('promptEngineDescription')}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
                 <label className="block text-sm font-medium mb-2">
-                  Batch Processing{" "}
+                  {t('batchProcessing')}{" "}
                   <Badge variant="secondary" className="ml-2 bg-primary text-primary-foreground">
-                    NEW
+                    {t('new')}
                   </Badge>
                 </label>
                 <p className="text-sm text-muted-foreground mb-3">
-                  Enable batch mode to process multiple images at once
+                  {t('batchProcessingDescription')}
                 </p>
               </div>
 
               <div>
                 <label htmlFor="image-upload" className="block text-sm font-medium mb-2">
-                  Reference Image 0/9
+                  {t('referenceImage')} 0/9
                 </label>
                 <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer">
                   <input
@@ -150,9 +153,9 @@ export function EditorSection() {
                       <>
                         <Upload className="w-12 h-12 mx-auto mb-3 text-muted-foreground" />
                         <p className="text-sm text-muted-foreground">
-                          Add Image
+                          {t('addImage')}
                           <br />
-                          Max 10MB
+                          {t('maxSize')}
                         </p>
                       </>
                     )}
@@ -162,18 +165,18 @@ export function EditorSection() {
 
               <div>
                 <label htmlFor="prompt" className="block text-sm font-medium mb-2">
-                  Main Prompt
+                  {t('mainPrompt')}
                 </label>
                 <Textarea
                   id="prompt"
-                  placeholder="A futuristic city powered by nano-technology, golden hour lighting, ultra detailed..."
+                  placeholder={t('promptPlaceholder')}
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
                   className="min-h-[100px]"
                 />
               </div>
 
-              {/* 错误提示 */}
+              {/* Error message */}
               {error && (
                 <div className="flex items-center gap-2 p-3 bg-destructive/10 border border-destructive/20 rounded-lg text-sm text-destructive">
                   <AlertCircle className="w-4 h-4" />
@@ -181,7 +184,7 @@ export function EditorSection() {
                 </div>
               )}
 
-              {/* 生成按钮 */}
+              {/* Generate button */}
               <Button
                 onClick={handleGenerate}
                 disabled={isGenerating || !selectedImage || !prompt.trim()}
@@ -191,12 +194,12 @@ export function EditorSection() {
                 {isGenerating ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    生成中...
+                    {t('generating')}
                   </>
                 ) : (
                   <>
                     <Sparkles className="w-4 h-4 mr-2" />
-                    Generate Now
+                    {t('generateNow')}
                   </>
                 )}
               </Button>
@@ -208,50 +211,50 @@ export function EditorSection() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <ImageIcon className="w-5 h-5 text-primary" />
-                Output Gallery
+                {t('outputGallery')}
               </CardTitle>
               <CardDescription>
-                {generatedResult ? "AI 生成结果" : "Your edits will instantly appear here"}
+                {generatedResult ? t('aiGeneratedResult') : t('instantGeneration')}
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="border-2 border-dashed border-border rounded-lg p-6 text-center min-h-[400px] flex flex-col items-center justify-center">
                 {isGenerating ? (
-                  // 加载状态
+                  // Loading state
                   <div className="flex flex-col items-center">
                     <Loader2 className="w-16 h-16 text-primary mb-4 animate-spin" />
-                    <h3 className="font-semibold mb-2">AI 正在处理中...</h3>
+                    <h3 className="font-semibold mb-2">{t('processing')}</h3>
                     <p className="text-sm text-muted-foreground">
-                      这可能需要几秒钟，请稍候
+                      {t('processingHint')}
                     </p>
                   </div>
                 ) : generatedResult || generatedImage ? (
-                  // 显示生成结果
+                  // Display generated result
                   <div className="w-full">
                     <div className="flex items-center justify-center gap-2 mb-4 text-green-600">
                       <Check className="w-5 h-5" />
-                      <span className="font-semibold">生成成功！</span>
+                      <span className="font-semibold">{t('generatedSuccessfully')}</span>
                     </div>
                     
-                    {/* 显示生成的图片 */}
+                    {/* Display generated image */}
                     {generatedImage && (
                       <div className="mb-4 rounded-lg overflow-hidden border-2 border-primary/20">
                         <img
                           src={generatedImage}
-                          alt="AI 生成的图片"
+                          alt="AI Generated Image"
                           className="w-full h-auto object-contain max-h-[400px]"
                         />
                       </div>
                     )}
                     
-                    {/* 显示文本结果 */}
+                    {/* Display text result */}
                     {generatedResult && (
                       <div className="bg-secondary/50 rounded-lg p-4 max-h-[300px] overflow-auto mb-4">
                         <p className="text-left whitespace-pre-wrap">{generatedResult}</p>
                       </div>
                     )}
                     
-                    {/* 操作按钮 */}
+                    {/* Action buttons */}
                     <div className="flex flex-wrap gap-2">
                       <Button
                         variant="outline"
@@ -263,7 +266,7 @@ export function EditorSection() {
                         }}
                         className="flex-1 min-w-[120px]"
                       >
-                        重新生成
+                        {t('regenerate')}
                       </Button>
                       {generatedResult && (
                         <Button
@@ -274,7 +277,7 @@ export function EditorSection() {
                           }}
                           className="flex-1 min-w-[120px]"
                         >
-                          复制文字
+                          {t('copyText')}
                         </Button>
                       )}
                       {generatedImage && (
@@ -282,7 +285,7 @@ export function EditorSection() {
                           variant="outline"
                           size="sm"
                           onClick={() => {
-                            // 下载图片
+                            // Download image
                             const link = document.createElement('a')
                             link.href = generatedImage
                             link.download = 'nano-banana-result.png'
@@ -290,18 +293,18 @@ export function EditorSection() {
                           }}
                           className="flex-1 min-w-[120px]"
                         >
-                          下载图片
+                          {t('downloadImage')}
                         </Button>
                       )}
                     </div>
                   </div>
                 ) : (
-                  // 默认状态
+                  // Default state
                   <>
                     <ImageIcon className="w-16 h-16 text-muted-foreground mb-4" />
-                    <h3 className="font-semibold mb-2">Ready for instant generation</h3>
+                    <h3 className="font-semibold mb-2">{t('readyForGeneration')}</h3>
                     <p className="text-sm text-muted-foreground">
-                      上传图片并输入提示词，点击生成按钮即可看到 AI 处理结果
+                      {t('uploadPromptHint')}
                     </p>
                   </>
                 )}
@@ -311,19 +314,5 @@ export function EditorSection() {
         </div>
       </div>
     </section>
-  )
-}
-
-function Badge({
-  children,
-  variant = "default",
-  className = "",
-}: { children: React.ReactNode; variant?: "default" | "secondary"; className?: string }) {
-  return (
-    <span
-      className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-medium ${variant === "secondary" ? "bg-secondary text-secondary-foreground" : "bg-primary text-primary-foreground"} ${className}`}
-    >
-      {children}
-    </span>
   )
 }

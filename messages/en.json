@@ -1,0 +1,202 @@
+{
+  "common": {
+    "signIn": "Sign In",
+    "getStarted": "Get Started",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "close": "Close"
+  },
+  "header": {
+    "imageEditor": "Image Editor",
+    "showcase": "Showcase",
+    "features": "Features",
+    "pricing": "Pricing",
+    "api": "API"
+  },
+  "hero": {
+    "badge": "AI-Powered Image Editing",
+    "title": "Edit Images with\nNatural Language",
+    "description": "Transform any photo with simple text commands. Our nano-banana technology understands your intentions and delivers instant, professional results.",
+    "tryNow": "Try Now - It's Free",
+    "viewGallery": "View Gallery"
+  },
+  "editor": {
+    "badge": "Get Started",
+    "title": "Try The AI Editor",
+    "description": "Experience the power of nano-banana's natural language image editing. Transform any photo with simple text commands.",
+    "promptEngine": "Prompt Engine",
+    "promptEngineDescription": "Transform your image with AI-powered editing",
+    "batchProcessing": "Batch Processing",
+    "batchProcessingDescription": "Enable batch mode to process multiple images at once",
+    "new": "NEW",
+    "referenceImage": "Reference Image",
+    "addImage": "Add Image",
+    "maxSize": "Max 10MB",
+    "mainPrompt": "Main Prompt",
+    "promptPlaceholder": "A futuristic city powered by nano-technology, golden hour lighting, ultra detailed...",
+    "generateNow": "Generate Now",
+    "generating": "Generating...",
+    "outputGallery": "Output Gallery",
+    "aiGeneratedResult": "AI Generated Result",
+    "instantGeneration": "Your edits will instantly appear here",
+    "readyForGeneration": "Ready for instant generation",
+    "uploadPromptHint": "Upload an image and enter a prompt, then click the generate button to see AI results",
+    "processing": "AI Processing...",
+    "processingHint": "This may take a few seconds, please wait",
+    "generatedSuccessfully": "Generated Successfully!",
+    "regenerate": "Regenerate",
+    "copyText": "Copy Text",
+    "downloadImage": "Download Image",
+    "errors": {
+      "imageSizeExceeded": "Image size cannot exceed 10MB",
+      "uploadImageFirst": "Please upload an image first",
+      "enterPrompt": "Please enter a prompt",
+      "generationFailed": "Generation failed",
+      "tryAgainLater": "Generation failed, please try again later"
+    }
+  },
+  "features": {
+    "badge": "Core Features",
+    "title": "Why Choose Nano Banana?",
+    "description": "Nano-banana is the most advanced AI image editor on LMArena. Revolutionize your photo editing with natural language understanding.",
+    "items": {
+      "naturalLanguage": {
+        "title": "Natural Language Editing",
+        "description": "Simply describe what you want in plain English. Nano-banana AI understands complex instructions like GPT for images."
+      },
+      "characterConsistency": {
+        "title": "Character Consistency",
+        "description": "This model excels at preserving character details across edits. Maintain faces and identities flawlessly."
+      },
+      "scenePreservation": {
+        "title": "Scene Preservation",
+        "description": "Edit specific elements while keeping your original backgrounds. Superior scene fidelity compared to Flux Kontext."
+      },
+      "oneShotEditing": {
+        "title": "One-Shot Editing",
+        "description": "Perfect results in a single attempt. Nano-banana delivers one-shot image editing challenges effortlessly."
+      },
+      "multiImageContext": {
+        "title": "Multi-Image Context",
+        "description": "Process multiple images simultaneously. Support for advanced multi-image editing workflows."
+      },
+      "aiUgcCreation": {
+        "title": "AI UGC Creation",
+        "description": "Create consistent AI influencers and UGC content. Perfect for social media and marketing campaigns."
+      }
+    }
+  },
+  "showcase": {
+    "badge": "Gallery",
+    "title": "Stunning Results in Milliseconds",
+    "description": "See what's possible with nano-banana's advanced AI image editing technology",
+    "items": {
+      "mountain": {
+        "title": "Ultra-Fast Mountain Generation",
+        "description": "Created in 0.8 seconds with Nano Banana's optimized neural engine",
+        "badge": "Lightning-Fast Results"
+      },
+      "garden": {
+        "title": "Instant Garden Creation",
+        "description": "Complex scene rendered in milliseconds using Nano Banana technology",
+        "badge": "Scene Preservation"
+      },
+      "tropical": {
+        "title": "Tropical Paradise Transform",
+        "description": "Natural environment editing with perfect lighting preservation",
+        "badge": "Natural Lighting"
+      },
+      "aurora": {
+        "title": "Aurora Borealis Magic",
+        "description": "Stunning atmospheric effects generated with AI precision",
+        "badge": "Atmospheric Effects"
+      }
+    }
+  },
+  "testimonials": {
+    "badge": "Testimonials",
+    "title": "Loved by Creators Worldwide",
+    "description": "Join thousands of designers, photographers, and content creators who trust nano-banana",
+    "items": {
+      "sarah": {
+        "name": "Sarah Chen",
+        "role": "Digital Artist",
+        "content": "Nano Banana has completely transformed my workflow. The character consistency is unmatched - I can finally create cohesive series without worrying about variations."
+      },
+      "marcus": {
+        "name": "Marcus Rodriguez",
+        "role": "Content Creator",
+        "content": "The natural language editing is a game-changer. I just describe what I want and it delivers perfectly. Way better than spending hours in traditional editors."
+      },
+      "emily": {
+        "name": "Emily Watson",
+        "role": "Marketing Director",
+        "content": "We use Nano Banana for all our UGC campaigns now. The multi-image support and consistency features save us countless hours and deliver professional results every time."
+      }
+    }
+  },
+  "faq": {
+    "badge": "FAQ",
+    "title": "Frequently Asked Questions",
+    "description": "Everything you need to know about Nano Banana",
+    "items": {
+      "different": {
+        "question": "What makes Nano Banana different from other AI image editors?",
+        "answer": "Nano Banana uses advanced natural language processing to understand complex editing instructions. Unlike traditional tools, you can describe what you want in plain English, and our AI handles the technical details. We also excel at character consistency and scene preservation, surpassing competitors like Flux Kontext."
+      },
+      "upload": {
+        "question": "How does the image upload feature work?",
+        "answer": "Simply drag and drop your images or click the upload button. You can upload up to 9 reference images at once for batch processing. Our system supports JPG, PNG, and WebP formats up to 10MB per image. The AI analyzes your images and applies your text prompts while preserving important details."
+      },
+      "commercial": {
+        "question": "Can I use Nano Banana for commercial projects?",
+        "answer": "Yes! All images generated with Nano Banana can be used for commercial purposes. You retain full rights to your creations. Our Pro and Enterprise plans include additional features like priority processing, higher resolution outputs, and API access for integration into your workflows."
+      },
+      "consistency": {
+        "question": "What is character consistency and why does it matter?",
+        "answer": "Character consistency means maintaining the same facial features, expressions, and identity across multiple edits or generations. This is crucial for creating AI influencers, brand mascots, or any series of images featuring the same person or character. Nano Banana excels at this, making it perfect for UGC campaigns and storytelling."
+      },
+      "speed": {
+        "question": "How fast is the image generation process?",
+        "answer": "Nano Banana is optimized for speed. Most edits complete in under 2 seconds, with simple transformations happening in milliseconds. Our lightning-fast processing is powered by optimized neural networks and efficient cloud infrastructure, so you can iterate quickly without waiting."
+      },
+      "api": {
+        "question": "Do you offer an API for developers?",
+        "answer": "Yes! Our API allows developers to integrate Nano Banana's powerful image editing capabilities into their own applications. The API supports all core features including natural language prompts, batch processing, and multi-image context. Check our API documentation for detailed integration guides and code examples."
+      }
+    }
+  },
+  "footer": {
+    "tagline": "Transform images with the power of natural language AI editing.",
+    "product": {
+      "title": "Product",
+      "imageEditor": "Image Editor",
+      "features": "Features",
+      "showcase": "Showcase",
+      "pricing": "Pricing"
+    },
+    "resources": {
+      "title": "Resources",
+      "documentation": "Documentation",
+      "api": "API",
+      "tutorials": "Tutorials",
+      "faq": "FAQ"
+    },
+    "company": {
+      "title": "Company",
+      "about": "About",
+      "blog": "Blog",
+      "contact": "Contact",
+      "privacy": "Privacy"
+    },
+    "copyright": "© {year} Nano Banana. All rights reserved.",
+    "disclaimer": "Nanobanana.ai is an independent product and is not affiliate with Google or any AI brands."
+  },
+  "metadata": {
+    "title": "Nano Banana - AI Image Editor",
+    "description": "Transform any image with simple text prompts. Advanced AI-powered image editing with natural language understanding."
+  }
+}

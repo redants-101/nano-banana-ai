@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
+import { getApiMessage, getLocaleFromRequest, getLocaleFromBody } from '@/lib/api-i18n';
 
 // 初始化 OpenAI 客户端，连接到 OpenRouter
 const openai = new OpenAI({
@@ -14,12 +15,16 @@ const openai = new OpenAI({
 export async function POST(request: NextRequest) {
   try {
     // 解析请求数据
-    const { imageUrl, prompt } = await request.json();
+    const body = await request.json();
+    const { imageUrl, prompt, locale: bodyLocale } = body;
+    
+    // 获取用户语言偏好
+    const locale = bodyLocale || getLocaleFromRequest(request);
 
     // 验证输入
     if (!imageUrl || !prompt) {
       return NextResponse.json(
-        { error: '缺少图片或提示词' },
+        { error: getApiMessage('missingInputs', locale) },
         { status: 400 }
       );
     }
@@ -55,7 +60,7 @@ export async function POST(request: NextRequest) {
     // 检查响应结构
     if (!completion || !completion.choices || completion.choices.length === 0) {
       console.error('API 返回了意外的响应结构:', completion);
-      throw new Error('API 返回了无效的响应');
+      throw new Error(getApiMessage('invalidResponse', locale));
     }
 
     // 获取生成的结果
@@ -67,8 +72,10 @@ export async function POST(request: NextRequest) {
     let resultImage = null;
 
     // 方式1: 检查 message.images 数组
-    if (result.images && Array.isArray(result.images) && result.images.length > 0) {
-      const imageData = result.images[0];
+    // 使用类型断言，因为 OpenRouter 的响应可能包含额外的字段
+    const resultWithImages = result as any;
+    if (resultWithImages.images && Array.isArray(resultWithImages.images) && resultWithImages.images.length > 0) {
+      const imageData = resultWithImages.images[0];
       if (imageData.image_url && imageData.image_url.url) {
         resultImage = imageData.image_url.url;
         console.log('检测到图片返回 (方式1):', resultImage);
@@ -97,12 +104,12 @@ export async function POST(request: NextRequest) {
 
     // 如果 content 为空但有图片，设置提示信息
     if (!resultContent && resultImage) {
-      resultContent = '✨ AI 已生成新图片！请查看下方的生成结果。';
+      resultContent = getApiMessage('imageGenerated', locale);
     }
 
     // 如果都为空，给出错误提示
     if (!resultContent && !resultImage) {
-      resultContent = 'AI 返回了响应，但没有可显示的内容。请查看控制台了解详细信息。';
+      resultContent = getApiMessage('noContent', locale);
     }
 
     // 返回结果
@@ -110,7 +117,7 @@ export async function POST(request: NextRequest) {
       success: true,
       result: resultContent,
       imageUrl: resultImage,
-      message: '图片处理成功！',
+      message: getApiMessage('success', locale),
       debug: {
         hasContent: !!resultContent,
         hasImage: !!resultImage,
@@ -120,10 +127,18 @@ export async function POST(request: NextRequest) {
   } catch (error: any) {
     console.error('API 调用错误:', error);
     
+    // 尝试获取 locale，如果失败则使用英文
+    let locale: 'en' | 'zh' = 'en';
+    try {
+      locale = getLocaleFromRequest(request);
+    } catch (e) {
+      // 使用默认语言
+    }
+    
     return NextResponse.json(
       {
-        error: '图片生成失败',
-        details: error.message || '未知错误',
+        error: getApiMessage('failed', locale),
+        details: error.message || getApiMessage('unknownError', locale),
       },
       { status: 500 }
     );

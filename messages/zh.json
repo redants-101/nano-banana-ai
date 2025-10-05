@@ -1,0 +1,202 @@
+{
+  "common": {
+    "signIn": "登录",
+    "getStarted": "开始使用",
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功",
+    "cancel": "取消",
+    "confirm": "确认",
+    "close": "关闭"
+  },
+  "header": {
+    "imageEditor": "图片编辑器",
+    "showcase": "作品展示",
+    "features": "功能特性",
+    "pricing": "价格方案",
+    "api": "API接口"
+  },
+  "hero": {
+    "badge": "AI驱动的图像编辑",
+    "title": "用自然语言\n编辑图片",
+    "description": "用简单的文字命令转换任何照片。我们的nano-banana技术理解您的意图，并提供即时、专业的结果。",
+    "tryNow": "立即试用 - 免费",
+    "viewGallery": "查看画廊"
+  },
+  "editor": {
+    "badge": "开始使用",
+    "title": "试用AI编辑器",
+    "description": "体验nano-banana自然语言图像编辑的强大功能。用简单的文字命令转换任何照片。",
+    "promptEngine": "提示引擎",
+    "promptEngineDescription": "使用AI驱动的编辑功能转换您的图像",
+    "batchProcessing": "批量处理",
+    "batchProcessingDescription": "启用批处理模式以一次处理多个图像",
+    "new": "新功能",
+    "referenceImage": "参考图片",
+    "addImage": "添加图片",
+    "maxSize": "最大 10MB",
+    "mainPrompt": "主要提示词",
+    "promptPlaceholder": "一个由纳米技术驱动的未来城市，金色时刻的光线，超级细节...",
+    "generateNow": "立即生成",
+    "generating": "生成中...",
+    "outputGallery": "输出画廊",
+    "aiGeneratedResult": "AI生成结果",
+    "instantGeneration": "您的编辑将立即显示在这里",
+    "readyForGeneration": "准备进行即时生成",
+    "uploadPromptHint": "上传图片并输入提示词，点击生成按钮即可看到AI处理结果",
+    "processing": "AI正在处理中...",
+    "processingHint": "这可能需要几秒钟，请稍候",
+    "generatedSuccessfully": "生成成功！",
+    "regenerate": "重新生成",
+    "copyText": "复制文字",
+    "downloadImage": "下载图片",
+    "errors": {
+      "imageSizeExceeded": "图片大小不能超过10MB",
+      "uploadImageFirst": "请先上传一张图片",
+      "enterPrompt": "请输入提示词",
+      "generationFailed": "生成失败",
+      "tryAgainLater": "生成失败，请稍后重试"
+    }
+  },
+  "features": {
+    "badge": "核心功能",
+    "title": "为什么选择Nano Banana？",
+    "description": "Nano-banana是LMArena上最先进的AI图像编辑器。用自然语言理解技术革新您的照片编辑体验。",
+    "items": {
+      "naturalLanguage": {
+        "title": "自然语言编辑",
+        "description": "用简单的中文描述您想要的效果。Nano-banana AI理解复杂指令，如同GPT处理图像。"
+      },
+      "characterConsistency": {
+        "title": "角色一致性",
+        "description": "该模型在编辑过程中出色地保留角色细节。完美维持面部和身份特征。"
+      },
+      "scenePreservation": {
+        "title": "场景保护",
+        "description": "编辑特定元素的同时保持原始背景。场景保真度远超Flux Kontext。"
+      },
+      "oneShotEditing": {
+        "title": "一次性编辑",
+        "description": "一次尝试即可获得完美效果。Nano-banana轻松应对一次性图像编辑挑战。"
+      },
+      "multiImageContext": {
+        "title": "多图像上下文",
+        "description": "同时处理多个图像。支持高级多图像编辑工作流。"
+      },
+      "aiUgcCreation": {
+        "title": "AI UGC创作",
+        "description": "创建一致的AI网红和UGC内容。完美适用于社交媒体和营销活动。"
+      }
+    }
+  },
+  "showcase": {
+    "badge": "画廊",
+    "title": "毫秒级的惊人效果",
+    "description": "见证nano-banana先进AI图像编辑技术的可能性",
+    "items": {
+      "mountain": {
+        "title": "超快速山脉生成",
+        "description": "使用Nano Banana优化的神经引擎在0.8秒内创建",
+        "badge": "闪电般快速的结果"
+      },
+      "garden": {
+        "title": "即时花园创建",
+        "description": "使用Nano Banana技术在毫秒内渲染复杂场景",
+        "badge": "场景保护"
+      },
+      "tropical": {
+        "title": "热带天堂变换",
+        "description": "具有完美光线保护的自然环境编辑",
+        "badge": "自然光线"
+      },
+      "aurora": {
+        "title": "北极光魔法",
+        "description": "使用AI精确生成令人惊叹的大气效果",
+        "badge": "大气效果"
+      }
+    }
+  },
+  "testimonials": {
+    "badge": "用户评价",
+    "title": "深受全球创作者喜爱",
+    "description": "加入成千上万信任nano-banana的设计师、摄影师和内容创作者",
+    "items": {
+      "sarah": {
+        "name": "陈莎拉",
+        "role": "数字艺术家",
+        "content": "Nano Banana 彻底改变了我的工作流程。角色一致性无与伦比 - 我终于可以创作连贯的系列作品，而不用担心变化。"
+      },
+      "marcus": {
+        "name": "马库斯·罗德里格斯",
+        "role": "内容创作者",
+        "content": "自然语言编辑是真正的游戏规则改变者。我只需描述我想要的效果，它就能完美实现。比在传统编辑器中花费数小时好太多了。"
+      },
+      "emily": {
+        "name": "艾米丽·沃森",
+        "role": "市场总监",
+        "content": "我们现在所有的 UGC 营销活动都使用 Nano Banana。多图像支持和一致性功能为我们节省了大量时间，每次都能提供专业的效果。"
+      }
+    }
+  },
+  "faq": {
+    "badge": "常见问题",
+    "title": "常见问题解答",
+      "description": "您需要了解的关于 Nano Banana 的一切",
+    "items": {
+      "different": {
+        "question": "Nano Banana 与其他 AI 图像编辑器有何不同？",
+        "answer": "Nano Banana 使用先进的自然语言处理技术来理解复杂的编辑指令。与传统工具不同，您可以用简单的中文描述您想要的效果，我们的 AI 会处理所有技术细节。我们在角色一致性和场景保留方面表现出色，超越了 Flux Kontext 等竞品。"
+      },
+      "upload": {
+        "question": "图像上传功能如何使用？",
+        "answer": "只需拖放图像或点击上传按钮即可。您可以一次上传多达 9 张参考图像进行批处理。我们的系统支持 JPG、PNG 和 WebP 格式，每张图片最大 10MB。AI 会分析您的图像并应用文本提示，同时保留重要细节。"
+      },
+      "commercial": {
+        "question": "我可以将 Nano Banana 用于商业项目吗？",
+        "answer": "可以！使用 Nano Banana 生成的所有图像都可以用于商业用途。您保留对创作的完全权利。我们的专业版和企业版计划包括优先处理、更高分辨率输出以及 API 访问等附加功能，可集成到您的工作流程中。"
+      },
+      "consistency": {
+        "question": "什么是角色一致性？为什么它很重要？",
+        "answer": "角色一致性是指在多次编辑或生成中保持相同的面部特征、表情和身份。这对于创建 AI 网红、品牌吉祥物或任何以同一人物或角色为特色的系列图像至关重要。Nano Banana 在这方面表现出色，非常适合 UGC 营销活动和故事讲述。"
+      },
+      "speed": {
+        "question": "图像生成过程有多快？",
+        "answer": "Nano Banana 针对速度进行了优化。大多数编辑在 2 秒内完成，简单的转换在毫秒内即可完成。我们的闪电般快速处理由优化的神经网络和高效的云基础设施提供支持，让您无需等待即可快速迭代。"
+      },
+      "api": {
+        "question": "你们为开发者提供 API 吗？",
+        "answer": "是的！我们的 API 允许开发者将 Nano Banana 强大的图像编辑功能集成到他们自己的应用程序中。API 支持所有核心功能，包括自然语言提示、批处理和多图像上下文。查看我们的 API 文档以获取详细的集成指南和代码示例。"
+      }
+    }
+  },
+  "footer": {
+    "tagline": "用自然语言 AI 编辑的力量转换图像。",
+    "product": {
+      "title": "产品",
+      "imageEditor": "图像编辑器",
+      "features": "功能特性",
+      "showcase": "作品展示",
+      "pricing": "价格方案"
+    },
+    "resources": {
+      "title": "资源",
+      "documentation": "开发文档",
+      "api": "API 接口",
+      "tutorials": "使用教程",
+      "faq": "常见问题"
+    },
+    "company": {
+      "title": "公司",
+      "about": "关于我们",
+      "blog": "博客",
+      "contact": "联系我们",
+      "privacy": "隐私政策"
+    },
+    "copyright": "© {year} Nano Banana. 保留所有权利。",
+    "disclaimer": "Nanobanana.ai 是独立产品，与 Google 或任何 AI 品牌无关联。"
+  },
+  "metadata": {
+    "title": "Nano Banana - AI图像编辑器",
+    "description": "使用简单的文字提示转换任何图像。具有自然语言理解的先进AI图像编辑。"
+  }
+}
