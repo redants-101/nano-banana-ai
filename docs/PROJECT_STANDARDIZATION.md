@@ -48,10 +48,14 @@
 提供了标准的环境变量模板，方便新开发者快速配置：
 
 ```env
+# OpenRouter API Key for Gemini 2.5 Flash Image
 OPENROUTER_API_KEY=your_openrouter_api_key_here
+
+# 应用信息
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 NEXT_PUBLIC_SITE_NAME=Nano Banana AI Image Editor
-NEXT_PUBLIC_BASE_URL=http://localhost:3000
+
+# 环境模式
 NODE_ENV=development
 ```
 

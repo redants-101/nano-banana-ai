@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: 'metadata' })
 
   // Language-specific metadata
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://nano-banana.ai'
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://nano-banana.ai'
   const currentUrl = `${baseUrl}/${locale}`
 
   return {
