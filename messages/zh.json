@@ -7,7 +7,28 @@
     "success": "成功",
     "cancel": "取消",
     "confirm": "确认",
-    "close": "关闭"
+    "close": "关闭",
+    "switchLanguage": "切换语言"
+  },
+  "auth": {
+    "login": "登录",
+    "logout": "退出登录",
+    "loggingOut": "退出中...",
+    "selectLoginMethod": "选择登录方式",
+    "loginDescription": "使用您的 GitHub 或 Google 账号登录",
+    "loginWithGoogle": "使用 Google 账号登录",
+    "loginWithGitHub": "使用 GitHub 账号登录",
+    "loggedInAs": "已登录",
+    "clickToViewMenu": "点击查看菜单",
+    "userMenu": "用户菜单",
+    "googleAccount": "Google 账号",
+    "githubAccount": "GitHub 账号",
+    "confirmLogout": "确认退出登录",
+    "confirmLogoutMessage": "您确定要退出 {provider} 账号吗？\n\n退出后需要重新登录才能访问个人功能。",
+    "logoutSuccess": "退出成功",
+    "logoutSuccessMessage": "您已成功退出{provider}账号",
+    "logoutFailed": "退出失败",
+    "logoutFailedMessage": "退出登录时发生错误，请重试"
   },
   "header": {
     "imageEditor": "图片编辑器",

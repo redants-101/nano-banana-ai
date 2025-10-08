@@ -4,13 +4,17 @@
 
 ## 🚀 如何运行项目
 
-### 第一步：配置 API Key
+### 第一步：配置 API Key 和 Supabase
 
 在项目根目录创建 `.env.local` 文件，添加以下内容：
 
 ```env
 # OpenRouter API Key for Gemini 2.5 Flash Image
 OPENROUTER_API_KEY=your-api-key-here
+
+# Supabase Configuration (for GitHub Login)
+NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 
 # 应用信息（可选）
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
@@ -21,6 +25,10 @@ NEXT_PUBLIC_SITE_NAME=Nano Banana AI Image Editor
 - `.env.local` 文件包含敏感信息，不要提交到 Git 仓库！
 - 请将 `your-api-key-here` 替换为您从 [OpenRouter](https://openrouter.ai/) 获取的真实 API Key
 - API Key 格式通常为：`sk-or-v1-xxxxxxxxxxxxxxxxxxxxxxx`
+
+📖 **配置社交登录**：
+- GitHub 登录：查看 [Supabase 配置指南](./docs/SUPABASE_SETUP.md)
+- Google 登录：查看 [Google OAuth 设置指南](./docs/GOOGLE_OAUTH_SETUP.md)
 
 ### 第二步：安装依赖
 
@@ -104,23 +112,29 @@ pnpm lint
 
 ## ✨ 核心功能
 
-### 1. 多语言支持 🌐
+### 1. GitHub 登录 🔐
+- 使用 GitHub 账号快速登录
+- 安全的 OAuth 2.0 认证流程
+- 自动保存用户登录状态
+- 查看 [Supabase 配置指南](./docs/SUPABASE_SETUP.md) 了解如何配置
+
+### 2. 多语言支持 🌐
 - 支持中文和英文界面
 - 点击右上角的语言按钮（🇺🇸 / 🇨🇳）切换语言
 - 系统自动记住您的语言偏好
 - 所有页面内容自动翻译
 
-### 2. 图片上传
+### 3. 图片上传
 - 点击 "Add Image" 上传图片
 - 支持 JPG、PNG、WebP 格式
 - 最大文件大小：10MB
 
-### 3. AI 图片处理
+### 4. AI 图片处理
 - 在 "Main Prompt" 输入框中输入您的提示词
 - 描述您想要 AI 如何处理图片
 - 点击 "Generate Now" 开始生成
 
-### 4. 查看结果
+### 5. 查看结果
 - AI 处理结果会显示在 "Output Gallery" 区域
 - 可以复制结果文本
 - 可以重新生成
@@ -146,6 +160,7 @@ nano-banana-ai/
 
 - **Next.js 14** - React 框架（使用 App Router）
 - **TypeScript** - 类型安全的 JavaScript
+- **Supabase** - 后端服务（认证、数据库）
 - **next-intl** - 国际化（i18n）解决方案
 - **Tailwind CSS** - 样式框架
 - **shadcn/ui** - UI 组件库

@@ -1,7 +1,9 @@
 import createMiddleware from 'next-intl/middleware';
 import { locales, defaultLocale } from './i18n';
+import { createServerClient, type CookieOptions } from '@supabase/ssr'
+import { NextResponse, type NextRequest } from 'next/server'
 
-export default createMiddleware({
+const intlMiddleware = createMiddleware({
   // 支持的语言列表
   locales,
   
@@ -11,6 +13,39 @@ export default createMiddleware({
   // 始终在 URL 中使用语言前缀
   localePrefix: 'always'
 });
+
+export async function middleware(request: NextRequest) {
+  let response = NextResponse.next({
+    request,
+  })
+
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll()
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) => request.cookies.set(name, value))
+          response = NextResponse.next({
+            request,
+          })
+          cookiesToSet.forEach(({ name, value, options }) =>
+            response.cookies.set(name, value, options)
+          )
+        },
+      },
+    }
+  )
+
+  // 刷新用户会话
+  await supabase.auth.getUser()
+
+  // 执行国际化 middleware
+  return intlMiddleware(request)
+}
 
 export const config = {
   // 匹配除以下路径外的所有路径：

@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { LanguageSwitcher } from "@/components/language-switcher"
+import { UserAuth } from "@/components/user-auth"
 import { useTranslations } from "next-intl"
 import { Link } from "@/lib/i18n/navigation"
 
@@ -36,9 +37,7 @@ export function Header() {
 
         <div className="flex items-center gap-3">
           <LanguageSwitcher />
-          <Button variant="ghost" size="sm">
-            {t('common.signIn')}
-          </Button>
+          <UserAuth />
           <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
             {t('common.getStarted')}
           </Button>

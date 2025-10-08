@@ -7,7 +7,28 @@
     "success": "Success",
     "cancel": "Cancel",
     "confirm": "Confirm",
-    "close": "Close"
+    "close": "Close",
+    "switchLanguage": "Switch language"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "loggingOut": "Logging out...",
+    "selectLoginMethod": "Select Login Method",
+    "loginDescription": "Sign in with your GitHub or Google account",
+    "loginWithGoogle": "Sign in with Google",
+    "loginWithGitHub": "Sign in with GitHub",
+    "loggedInAs": "Logged in",
+    "clickToViewMenu": "Click to view menu",
+    "userMenu": "User menu",
+    "googleAccount": "Google Account",
+    "githubAccount": "GitHub Account",
+    "confirmLogout": "Confirm Logout",
+    "confirmLogoutMessage": "Are you sure you want to logout from your {provider} account?\n\nYou'll need to sign in again to access personal features.",
+    "logoutSuccess": "Logout Successful",
+    "logoutSuccessMessage": "You have successfully logged out from your {provider} account",
+    "logoutFailed": "Logout Failed",
+    "logoutFailedMessage": "An error occurred while logging out. Please try again"
   },
   "header": {
     "imageEditor": "Image Editor",

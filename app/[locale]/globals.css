@@ -57,5 +57,11 @@
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* 防止下拉菜单导致的滚动条 */
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+  }
 }
 
