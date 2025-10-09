@@ -216,6 +216,91 @@
     "copyright": "© {year} Nano Banana. All rights reserved.",
     "disclaimer": "Nanobanana.ai is an independent product and is not affiliate with Google or any AI brands."
   },
+  "pricing": {
+    "badge": "Pricing",
+    "title": "Choose Your Perfect Plan",
+    "description": "Start free and upgrade anytime to unlock more features",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "save": "Save {percent}%",
+    "perMonth": "/month",
+    "perYear": "/year",
+    "selectPlan": "Select Plan",
+    "currentPlan": "Current Plan",
+    "popular": "Most Popular",
+    "plans": {
+      "free": {
+        "name": "Free",
+        "description": "Perfect for trying out",
+        "price": "0",
+        "features": [
+          "10 free generations per month",
+          "Standard image quality",
+          "Basic editing features",
+          "Single image processing",
+          "Community support"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "description": "For professional creators",
+        "price": "19",
+        "yearlyPrice": "190",
+        "features": [
+          "500 generations per month",
+          "HD image quality (4K)",
+          "All advanced features",
+          "Batch processing (up to 9)",
+          "Character consistency",
+          "Scene preservation",
+          "Priority processing queue",
+          "Email support"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "For teams and businesses",
+        "price": "Custom",
+        "features": [
+          "Unlimited generations",
+          "Ultra HD quality (8K)",
+          "Full API access",
+          "Unlimited batch processing",
+          "Dedicated account manager",
+          "Advanced character consistency",
+          "Custom model training",
+          "Priority technical support",
+          "SLA guarantee",
+          "Team collaboration features"
+        ]
+      }
+    },
+    "faq": {
+      "title": "Pricing FAQ",
+      "items": {
+        "credits": {
+          "question": "How do credits work?",
+          "answer": "Each image generation consumes 1 credit. Pro plan includes 500 credits per month, Enterprise includes unlimited credits. Unused credits do not roll over to the next month."
+        },
+        "upgrade": {
+          "question": "How do I upgrade or downgrade my plan?",
+          "answer": "You can change your plan anytime in your account settings. Upgrades take effect immediately, while downgrades take effect at the end of your current billing cycle."
+        },
+        "payment": {
+          "question": "What payment methods are accepted?",
+          "answer": "We accept credit cards, debit cards, and other major payment methods. All payments are securely processed by Creem."
+        },
+        "refund": {
+          "question": "Is there a refund policy?",
+          "answer": "We offer a 14-day money-back guarantee. If you're not satisfied with our service, you can request a full refund within 14 days of purchase."
+        },
+        "cancel": {
+          "question": "Can I cancel anytime?",
+          "answer": "Yes, you can cancel your subscription at any time. After cancellation, you'll still have access until the end of your current billing period."
+        }
+      }
+    }
+  },
   "metadata": {
     "title": "Nano Banana - AI Image Editor",
     "description": "Transform any image with simple text prompts. Advanced AI-powered image editing with natural language understanding."

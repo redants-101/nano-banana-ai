@@ -18,19 +18,19 @@ export function Header() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-6">
-          <Link href="#editor" className="text-sm font-medium hover:text-primary transition-colors">
+          <Link href="/#editor" className="text-sm font-medium hover:text-primary transition-colors">
             {t('header.imageEditor')}
           </Link>
-          <Link href="#showcase" className="text-sm font-medium hover:text-primary transition-colors">
+          <Link href="/#showcase" className="text-sm font-medium hover:text-primary transition-colors">
             {t('header.showcase')}
           </Link>
-          <Link href="#features" className="text-sm font-medium hover:text-primary transition-colors">
+          <Link href="/#features" className="text-sm font-medium hover:text-primary transition-colors">
             {t('header.features')}
           </Link>
-          <Link href="#pricing" className="text-sm font-medium hover:text-primary transition-colors">
+          <Link href="/pricing" className="text-sm font-medium hover:text-primary transition-colors">
             {t('header.pricing')}
           </Link>
-          <Link href="#api" className="text-sm font-medium hover:text-primary transition-colors">
+          <Link href="/#api" className="text-sm font-medium hover:text-primary transition-colors">
             {t('header.api')}
           </Link>
         </nav>

@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💳 支付模块完整诊断工具</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid #e9ecef;
+        }
+
+        .section h2 {
+            color: #495057;
+            margin-bottom: 15px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section p {
+            color: #6c757d;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.6);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        button.secondary {
+            background: #6c757d;
+        }
+
+        button.success {
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+        }
+
+        button.danger {
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+        }
+
+        .result {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .result pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            color: #212529;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin: 2px;
+        }
+
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-info {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .info-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .info-card h4 {
+            color: #495057;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .info-card p {
+            color: #6c757d;
+            font-size: 13px;
+            margin: 0;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: #6c757d;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💳 支付模块完整诊断工具</h1>
+            <p>Nano Banana AI - Payment Module Diagnostic Tool</p>
+        </div>
+
+        <div class="content">
+            <!-- 快速诊断 -->
+            <div class="section">
+                <h2>🚀 快速诊断</h2>
+                <p>一键检查所有关键配置和 API 端点状态</p>
+                <div class="button-group">
+                    <button onclick="runFullDiagnostic()" class="success">🔍 运行完整诊断</button>
+                    <button onclick="clearResults()">🗑️ 清除结果</button>
+                </div>
+                <div id="diagnostic-result" class="result" style="display: none;"></div>
+            </div>
+
+            <!-- 环境变量检查 -->
+            <div class="section">
+                <h2>⚙️ 环境变量检查</h2>
+                <p>检查所有必需和可选的环境变量配置状态</p>
+                <div class="button-group">
+                    <button onclick="checkEnvVars()">检查环境变量</button>
+                </div>
+                <div id="env-result" class="result" style="display: none;"></div>
+            </div>
+
+            <!-- API 路由测试 -->
+            <div class="section">
+                <h2>🔌 API 路由测试</h2>
+                <p>测试不同方式调用 API 的结果，诊断路由问题</p>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>当前页面信息</h4>
+                        <p><strong>Origin:</strong> <span id="current-origin"></span></p>
+                        <p><strong>Pathname:</strong> <span id="current-pathname"></span></p>
+                    </div>
+                    <div class="info-card">
+                        <h4>API 基础路径</h4>
+                        <p><strong>Absolute:</strong> /api/creem/create-checkout</p>
+                        <p><strong>With Origin:</strong> {origin}/api/...</p>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button onclick="testHealthCheck()">1️⃣ 健康检查</button>
+                    <button onclick="testRelativePath()">2️⃣ 相对路径</button>
+                    <button onclick="testAbsolutePath()">3️⃣ 绝对路径</button>
+                    <button onclick="testOriginPath()">4️⃣ Origin 路径</button>
+                </div>
+                <div id="api-result" class="result" style="display: none;"></div>
+            </div>
+
+            <!-- 支付流程测试 -->
+            <div class="section">
+                <h2>💰 支付流程测试</h2>
+                <p>模拟真实支付流程，测试 Creem API 集成</p>
+                <div class="button-group">
+                    <button onclick="testPaymentFlow('monthly')">测试月付订阅</button>
+                    <button onclick="testPaymentFlow('yearly')">测试年付订阅</button>
+                </div>
+                <div id="payment-result" class="result" style="display: none;"></div>
+            </div>
+
+            <!-- 解决方案指南 -->
+            <div class="section">
+                <h2>📖 常见问题解决方案</h2>
+                <p>根据诊断结果，这里是常见问题的解决方案：</p>
+                
+                <details style="margin-top: 15px;">
+                    <summary style="cursor: pointer; font-weight: 600; padding: 10px; background: white; border-radius: 5px;">❌ 404 Not Found</summary>
+                    <div class="code-block" style="margin-top: 10px;">
+<strong>问题：</strong>API 路由返回 404 错误
+
+<strong>原因：</strong>
+1. 相对路径在国际化路由中被错误解析
+2. API 路由文件位置不正确
+3. Middleware 配置拦截了 API 请求
+
+<strong>解决方案：</strong>
+1. 使用 window.location.origin 拼接完整 URL：
+   const url = `${window.location.origin}/api/creem/create-checkout`
+
+2. 检查文件位置：
+   app/api/creem/create-checkout/route.ts
+
+3. 检查 middleware.ts 配置：
+   matcher: ['/((?!api|...)...)']
+                    </div>
+                </details>
+
+                <details style="margin-top: 10px;">
+                    <summary style="cursor: pointer; font-weight: 600; padding: 10px; background: white; border-radius: 5px;">⚙️ 环境变量未配置</summary>
+                    <div class="code-block" style="margin-top: 10px;">
+<strong>问题：</strong>CREEM_API_KEY 或其他环境变量未配置
+
+<strong>解决方案：</strong>
+1. 在项目根目录创建 .env.local 文件
+2. 添加必需的环境变量：
+
+CREEM_API_KEY=your-api-key
+NEXT_PUBLIC_CREEM_PRO_PRODUCT_ID=prod_xxxx
+
+3. 重启开发服务器（Ctrl+C 然后 npm run dev）
+4. 再次运行诊断工具验证
+                    </div>
+                </details>
+
+                <details style="margin-top: 10px;">
+                    <summary style="cursor: pointer; font-weight: 600; padding: 10px; background: white; border-radius: 5px;">🔐 API 认证失败</summary>
+                    <div class="code-block" style="margin-top: 10px;">
+<strong>问题：</strong>Creem API 返回 401 Unauthorized
+
+<strong>解决方案：</strong>
+1. 检查 CREEM_API_KEY 是否正确
+2. 登录 Creem Dashboard 验证 API Key
+3. 确保 API Key 有足够的权限
+4. 检查 API Key 是否过期
+                    </div>
+                </details>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 显示当前页面信息
+        document.getElementById('current-origin').textContent = window.location.origin;
+        document.getElementById('current-pathname').textContent = window.location.pathname;
+
+        function showResult(elementId, content, autoShow = true) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<pre>${JSON.stringify(content, null, 2)}</pre>`;
+            if (autoShow) {
+                element.style.display = 'block';
+            }
+        }
+
+        function clearResults() {
+            ['diagnostic-result', 'env-result', 'api-result', 'payment-result'].forEach(id => {
+                document.getElementById(id).style.display = 'none';
+                document.getElementById(id).innerHTML = '';
+            });
+        }
+
+        async function runFullDiagnostic() {
+            const result = {
+                timestamp: new Date().toISOString(),
+                tests: []
+            };
+
+            showResult('diagnostic-result', { status: '⏳ 正在运行完整诊断...' });
+
+            // 测试 1: 健康检查
+            try {
+                const healthResponse = await fetch('/api/health-check');
+                result.tests.push({
+                    name: '健康检查',
+                    status: healthResponse.ok ? '✅ 通过' : '❌ 失败',
+                    statusCode: healthResponse.status
+                });
+            } catch (error) {
+                result.tests.push({
+                    name: '健康检查',
+                    status: '❌ 失败',
+                    error: error.message
+                });
+            }
+
+            // 测试 2: 环境变量检查
+            try {
+                const envResponse = await fetch('/api/check-env');
+                const envData = await envResponse.json();
+                result.tests.push({
+                    name: '环境变量检查',
+                    status: envData.summary.status,
+                    configured: `${envData.summary.configured}/${envData.summary.total}`,
+                    recommendations: envData.recommendations
+                });
+            } catch (error) {
+                result.tests.push({
+                    name: '环境变量检查',
+                    status: '❌ 失败',
+                    error: error.message
+                });
+            }
+
+            // 测试 3: API 路由测试
+            try {
+                const apiUrl = `${window.location.origin}/api/creem/create-checkout`;
+                const apiResponse = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        productId: 'test_product',
+                        billingCycle: 'monthly'
+                    })
+                });
+                result.tests.push({
+                    name: 'API 路由测试',
+                    status: apiResponse.status === 200 || apiResponse.status === 400 || apiResponse.status === 500 ? '✅ 路由正常' : '❌ 路由异常',
+                    statusCode: apiResponse.status,
+                    note: apiResponse.status === 500 ? '路由正常，但可能缺少 Creem 配置' : ''
+                });
+            } catch (error) {
+                result.tests.push({
+                    name: 'API 路由测试',
+                    status: '❌ 失败',
+                    error: error.message
+                });
+            }
+
+            // 汇总结果
+            const passedTests = result.tests.filter(t => t.status.includes('✅')).length;
+            result.summary = {
+                total: result.tests.length,
+                passed: passedTests,
+                failed: result.tests.length - passedTests,
+                overallStatus: passedTests === result.tests.length ? '✅ 所有测试通过' : '⚠️ 部分测试未通过'
+            };
+
+            showResult('diagnostic-result', result);
+        }
+
+        async function checkEnvVars() {
+            try {
+                showResult('env-result', { status: '⏳ 正在检查环境变量...' });
+                
+                const response = await fetch('/api/check-env');
+                const data = await response.json();
+                
+                showResult('env-result', data);
+            } catch (error) {
+                showResult('env-result', {
+                    error: '检查失败',
+                    message: error.message,
+                    suggestion: '请确保开发服务器正在运行'
+                });
+            }
+        }
+
+        async function testHealthCheck() {
+            try {
+                showResult('api-result', { status: '⏳ 正在测试...' });
+                
+                const response = await fetch('/api/health-check');
+                const data = await response.json();
+                
+                showResult('api-result', {
+                    test: '健康检查',
+                    url: '/api/health-check',
+                    status: response.status,
+                    ok: response.ok,
+                    data: data
+                });
+            } catch (error) {
+                showResult('api-result', {
+                    test: '健康检查',
+                    error: error.message
+                });
+            }
+        }
+
+        async function testRelativePath() {
+            try {
+                showResult('api-result', { status: '⏳ 正在测试相对路径...' });
+                
+                const url = '/api/creem/create-checkout';
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        productId: 'test_product',
+                        billingCycle: 'monthly'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                showResult('api-result', {
+                    test: '相对路径测试',
+                    url: url,
+                    currentPath: window.location.pathname,
+                    actualUrl: `当前路径: ${window.location.pathname}, 可能解析为: ${window.location.pathname}/api/creem/create-checkout`,
+                    status: response.status,
+                    ok: response.ok,
+                    data: data
+                });
+            } catch (error) {
+                showResult('api-result', {
+                    test: '相对路径测试',
+                    error: error.message
+                });
+            }
+        }
+
+        async function testAbsolutePath() {
+            try {
+                showResult('api-result', { status: '⏳ 正在测试绝对路径...' });
+                
+                const url = 'http://localhost:3000/api/creem/create-checkout';
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        productId: 'test_product',
+                        billingCycle: 'monthly'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                showResult('api-result', {
+                    test: '绝对路径测试',
+                    url: url,
+                    status: response.status,
+                    ok: response.ok,
+                    data: data
+                });
+            } catch (error) {
+                showResult('api-result', {
+                    test: '绝对路径测试',
+                    error: error.message
+                });
+            }
+        }
+
+        async function testOriginPath() {
+            try {
+                showResult('api-result', { status: '⏳ 正在测试 Origin 路径...' });
+                
+                const url = `${window.location.origin}/api/creem/create-checkout`;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        productId: 'test_product',
+                        billingCycle: 'monthly'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                showResult('api-result', {
+                    test: 'Origin 路径测试（推荐方式）',
+                    url: url,
+                    windowOrigin: window.location.origin,
+                    status: response.status,
+                    ok: response.ok,
+                    data: data,
+                    recommendation: '✅ 这是推荐的调用方式'
+                });
+            } catch (error) {
+                showResult('api-result', {
+                    test: 'Origin 路径测试',
+                    error: error.message
+                });
+            }
+        }
+
+        async function testPaymentFlow(billingCycle) {
+            try {
+                showResult('payment-result', { status: `⏳ 正在测试${billingCycle === 'monthly' ? '月付' : '年付'}订阅...` });
+                
+                const url = `${window.location.origin}/api/creem/create-checkout`;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        productId: 'test_product_id',
+                        billingCycle: billingCycle
+                    })
+                });
+                
+                const data = await response.json();
+                
+                showResult('payment-result', {
+                    test: `支付流程测试 - ${billingCycle === 'monthly' ? '月付' : '年付'}`,
+                    billingCycle: billingCycle,
+                    status: response.status,
+                    ok: response.ok,
+                    data: data,
+                    note: data.checkoutUrl ? '✅ 成功获取支付链接' : '⚠️ 未获取到支付链接，请检查 Creem 配置'
+                });
+            } catch (error) {
+                showResult('payment-result', {
+                    test: '支付流程测试',
+                    error: error.message
+                });
+            }
+        }
+
+        // 页面加载时显示当前配置
+        window.addEventListener('load', () => {
+            console.log('💳 支付模块诊断工具已加载');
+            console.log('当前页面:', window.location.href);
+            console.log('Origin:', window.location.origin);
+        });
+    </script>
+</body>
+</html>
+

@@ -15,6 +15,13 @@ OPENROUTER_API_KEY=your-api-key-here
 # Supabase Configuration (for GitHub Login)
 NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key-here
+
+# Creem Payment Configuration (可选 - 仅用于订阅功能)
+CREEM_API_KEY=your-creem-api-key-here
+CREEM_WEBHOOK_SECRET=your-webhook-secret-here
+NEXT_PUBLIC_CREEM_PRO_PRODUCT_ID=prod_xxxxxxxxxxxxx
+NEXT_PUBLIC_CREEM_PRO_YEARLY_PRODUCT_ID=prod_yyyyyyyyyyyyy
 
 # 应用信息（可选）
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
@@ -29,6 +36,10 @@ NEXT_PUBLIC_SITE_NAME=Nano Banana AI Image Editor
 📖 **配置社交登录**：
 - GitHub 登录：查看 [Supabase 配置指南](./docs/SUPABASE_SETUP.md)
 - Google 登录：查看 [Google OAuth 设置指南](./docs/GOOGLE_OAUTH_SETUP.md)
+
+💳 **配置支付功能（可选）**：
+- Creem 支付集成：查看 [Creem 设置指南](./docs/CREEM_SETUP.md)
+- 数据库表创建：查看 [数据库设置指南](./docs/DATABASE_SETUP.md)
 
 ### 第二步：安装依赖
 
@@ -112,29 +123,36 @@ pnpm lint
 
 ## ✨ 核心功能
 
-### 1. GitHub 登录 🔐
-- 使用 GitHub 账号快速登录
+### 1. 用户认证 🔐
+- 支持 GitHub 和 Google 账号登录
 - 安全的 OAuth 2.0 认证流程
 - 自动保存用户登录状态
 - 查看 [Supabase 配置指南](./docs/SUPABASE_SETUP.md) 了解如何配置
 
-### 2. 多语言支持 🌐
+### 2. 订阅和支付 💳
+- 集成 Creem 支付系统
+- 支持月付和年付订阅
+- 自动订阅管理和续费
+- 三种订阅方案：免费版、专业版、企业版
+- 查看 [Creem 设置指南](./docs/CREEM_SETUP.md) 了解如何配置
+
+### 3. 多语言支持 🌐
 - 支持中文和英文界面
 - 点击右上角的语言按钮（🇺🇸 / 🇨🇳）切换语言
 - 系统自动记住您的语言偏好
 - 所有页面内容自动翻译
 
-### 3. 图片上传
+### 4. 图片上传
 - 点击 "Add Image" 上传图片
 - 支持 JPG、PNG、WebP 格式
 - 最大文件大小：10MB
 
-### 4. AI 图片处理
+### 5. AI 图片处理
 - 在 "Main Prompt" 输入框中输入您的提示词
 - 描述您想要 AI 如何处理图片
 - 点击 "Generate Now" 开始生成
 
-### 5. 查看结果
+### 6. 查看结果
 - AI 处理结果会显示在 "Output Gallery" 区域
 - 可以复制结果文本
 - 可以重新生成
@@ -144,16 +162,25 @@ pnpm lint
 ```
 nano-banana-ai/
 ├── app/                    # 主要应用代码
-│   ├── api/               # API 路由
-│   │   └── generate-image/ # 图片生成 API
-│   ├── page.tsx           # 主页面
-│   └── globals.css        # 全局样式
-├── components/            # React 组件
-│   ├── ui/               # UI 基础组件
-│   ├── editor-section.tsx # 编辑器核心功能
-│   └── *-section.tsx     # 其他页面部分
-├── public/               # 静态资源（图片等）
-└── .env.local           # 环境变量（需手动创建）
+│   ├── [locale]/          # 国际化路由
+│   │   ├── page.tsx      # 主页面
+│   │   ├── pricing/      # 定价页面
+│   │   └── payment/      # 支付相关页面
+│   ├── api/              # API 路由
+│   │   ├── generate-image/ # 图片生成 API
+│   │   ├── creem/        # Creem 支付 API
+│   │   └── subscription/ # 订阅管理 API
+│   └── globals.css       # 全局样式
+├── components/           # React 组件
+│   ├── ui/              # UI 基础组件
+│   ├── pricing-section.tsx # 定价页面组件
+│   ├── subscription-status.tsx # 订阅状态组件
+│   └── *-section.tsx    # 其他页面部分
+├── docs/                # 项目文档
+│   ├── CREEM_SETUP.md   # Creem 支付设置指南
+│   └── DATABASE_SETUP.md # 数据库设置指南
+├── public/              # 静态资源（图片等）
+└── .env.local          # 环境变量（需手动创建）
 ```
 
 ## 🎨 技术栈
@@ -256,6 +283,38 @@ echo OPENROUTER_API_KEY=sk-or-v1-40f733fd4dc816e1cdb1706ef7fe6e639bdcc0ff17eab24
    用富有诗意的语言描述这张图片的氛围和情感
    ```
 
+## 🛠️ 诊断工具
+
+### 支付模块诊断工具
+
+如果遇到支付相关问题（如 404 错误），可以使用我们的诊断工具：
+
+#### 方法 1：使用网页诊断工具（推荐）
+```
+http://localhost:3000/test-payment-debug.html
+```
+这个工具可以：
+- ✅ 检查所有环境变量配置
+- ✅ 测试 API 路由是否正常
+- ✅ 诊断路径解析问题
+- ✅ 提供详细的解决方案
+
+#### 方法 2：检查环境变量 API
+```
+http://localhost:3000/api/check-env
+```
+快速查看所有环境变量的配置状态。
+
+#### 方法 3：简单 API 测试
+```
+http://localhost:3000/test-payment-api.html
+```
+测试不同路径调用方式的差异。
+
+📖 **详细文档：**
+- [支付模块诊断报告](./docs/PAYMENT_MODULE_DIAGNOSTIC.md)
+- [环境变量检查指南](./docs/ENV_VARIABLES_CHECK.md)
+
 ## 📞 需要帮助？
 
 如果遇到任何问题，请检查：
@@ -264,6 +323,7 @@ echo OPENROUTER_API_KEY=sk-or-v1-40f733fd4dc816e1cdb1706ef7fe6e639bdcc0ff17eab24
 3. 网络连接是否正常（安装依赖和调用 API 都需要网络）
 4. `.env.local` 文件是否创建正确
 5. API Key 是否有效
+6. 使用诊断工具检查配置（见上方"诊断工具"部分）
 
 ## 🔐 安全提示
 
