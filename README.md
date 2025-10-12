@@ -12,6 +12,9 @@
 # OpenRouter API Key for Gemini 2.5 Flash Image
 OPENROUTER_API_KEY=your-api-key-here
 
+# 网站基础 URL（用于 SEO sitemap，生产环境必须配置）
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+
 # Supabase Configuration (for GitHub Login)
 NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
@@ -24,7 +27,6 @@ NEXT_PUBLIC_CREEM_PRO_PRODUCT_ID=prod_xxxxxxxxxxxxx
 NEXT_PUBLIC_CREEM_PRO_YEARLY_PRODUCT_ID=prod_yyyyyyyyyyyyy
 
 # 应用信息（可选）
-NEXT_PUBLIC_SITE_URL=http://localhost:3000
 NEXT_PUBLIC_SITE_NAME=Nano Banana AI Image Editor
 ```
 
@@ -194,6 +196,39 @@ nano-banana-ai/
 - **OpenAI SDK** - API 调用库
 - **Gemini 2.5 Flash Image** - Google 的 AI 图像处理模型
 - **OpenRouter** - AI API 聚合平台
+
+## 🔍 SEO 优化
+
+### Sitemap 站点地图
+
+本项目已配置动态生成的 sitemap，帮助搜索引擎更好地索引您的网站：
+
+- ✅ **多语言支持** - 自动为 en 和 zh 生成 URL
+- ✅ **动态生成** - 无需手动维护
+- ✅ **SEO 优化** - 包含优先级、更新频率等元数据
+- ✅ **Robots.txt** - 自动配置搜索引擎爬虫规则
+
+**访问方式：**
+```
+http://localhost:3000/sitemap.xml
+http://localhost:3000/robots.txt
+```
+
+**配置说明：**
+- 📖 [Sitemap 配置指南](./docs/SITEMAP_SETUP.md)
+- 📖 [Sitemap 测试指南](./docs/SITEMAP_TESTING.md)
+
+**快速配置：**
+
+在 `.env.local` 中设置您的网站 URL：
+```env
+NEXT_PUBLIC_SITE_URL=https://your-domain.com
+```
+
+**生产环境部署后：**
+1. 提交 sitemap 到 [Google Search Console](https://search.google.com/search-console)
+2. 提交 sitemap 到 [Bing Webmaster Tools](https://www.bing.com/webmasters)
+3. 监控索引状态和搜索表现
 
 ## ❓ 常见问题
 
